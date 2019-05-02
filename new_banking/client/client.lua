@@ -18,6 +18,8 @@ local banks = {
 }
 
 local atms = {
+  {name="ATM", id=277, x=89.75, y=2.35, z=68.31},	
+  {name="ATM", id=277, x=1167.02, y=-456.32, z=66.79},
   {name="ATM", id=277, x=-386.733, y=6045.953, z=31.501},
   {name="ATM", id=277, x=-284.037, y=6224.385, z=31.187},
   {name="ATM", id=277, x=-284.037, y=6224.385, z=31.187},
@@ -92,6 +94,13 @@ local atms = {
   {name="ATM", id=277, x=5.134, y=-919.949, z=29.557},
 
 }
+function playAnim(animDict, animName, duration)
+	RequestAnimDict(animDict)
+	while not HasAnimDictLoaded(animDict) do Citizen.Wait(0) end
+	TaskPlayAnim(PlayerPedId(), animDict, animName, 1.0, -1.0, duration, 49, 1, false, false, false)
+	RemoveAnimDict(animDict)
+end
+
 --================================================================================================
 --==                                THREADING - DO NOT EDIT                                     ==
 --================================================================================================
@@ -121,6 +130,8 @@ if bankMenu then
 			DisplayHelpText("Press ~INPUT_PICKUP~ to access account ~b~")
 
 		if IsControlJustPressed(1, 38) then
+			playAnim('mp_common', 'givetake1_a', 2500)
+			Citizen.Wait(2500)
 			inMenu = true
 			SetNuiFocus(true, true)
 			SendNUIMessage({type = 'openGeneral'})
@@ -240,6 +251,8 @@ end)
 RegisterNUICallback('NUIFocusOff', function()
 	inMenu = false
 	SetNuiFocus(false, false)
+			playAnim('mp_common', 'givetake1_a', 2500)
+			Citizen.Wait(2500)
 	SendNUIMessage({type = 'closeAll'})
 end)
 
