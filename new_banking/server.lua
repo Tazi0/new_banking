@@ -47,30 +47,26 @@ end)
 RegisterServerEvent('bank:transfer')
 AddEventHandler('bank:transfer', function(to, amountt)
 	local _source = source
-	local xPlayer = ESX.GetPlayerFromId(_source)
-	local zPlayer = ESX.GetPlayerFromId(to)
+	local sourceXPlayer = ESX.GetPlayerFromId(_source)
+	local targetXPlayer = ESX.GetPlayerFromId(tonumber(to))
+	local balance = sourceXPlayer.getAccount('bank').money
 	
-	--Thanks to (LuCampbell)
-	TriggerEvent('es:getPlayerFromId', xPlayer, function(user)
-		if (tonumber(user.money) >= tonumber(amountt)) then
-			local player = user.identifier
-			user:removeMoney((amountt))	
-		
-			TriggerEvent('es:getPlayerFromId', zPlayer, function(user2)
-				local player2 = user2.identifier
-				user2:addMoney((amountt))
-				TriggerClientEvent("chatMessage", zPlayer , "You received money ", { 52, 201, 36 }, "You received the sum of "..amountt.." dollars")
-				TriggerClientEvent("chatMessage", xPlayer, "Payment receipt ", { 255, 0, 0 }, "Your payment of "..amountt.." dollars is done")
-			end)	
+	if _source == tonumber(to) then
+                -- advanced notification with bank icon
+		TriggerClientEvent('esx:showAdvancedNotification', _source, 'Bank', 'Transfer', 'You cannot send money to yourself!', 'CHAR_BANK_MAZE', 9)
+	else
+		if balance < 1 or balance < tonumber(amountt) or tonumber(amountt) < 1 then
+                        -- advanced notification with bank icon
+			TriggerClientEvent('esx:showAdvancedNotification', _source, 'Bank', 'Transfer', 'You have not enough money to send!', 'CHAR_BANK_MAZE', 9)
 		else
-			if (tonumber(user.money) < tonumber(amountt)) then
-			
-				TriggerClientEvent("chatMessage", player, "", { 255, 0, 0 }, "You do not have enough money")
-			end
+			sourceXPlayer.removeAccountMoney('bank', tonumber(amountt))
+			targetXPlayer.addAccountMoney('bank', tonumber(amountt))
+                        -- advanced notification with bank icon
+				TriggerClientEvent('esx:showAdvancedNotification', _source, 'Bank', 'Transfer', 'Sended ~r~$' .. amountt .. '~s~ do ~r~' .. to .. ' .', 'CHAR_BANK_MAZE', 9)
+				TriggerClientEvent('esx:showAdvancedNotification', to, 'Bank', 'Transfer', 'Sended to you ~r~$' .. amountt .. '~s~ od ~r~' .. _source .. ' .', 'CHAR_BANK_MAZE', 9)
 		end
-	end) 
+	end
 end)
-
 
 
 
