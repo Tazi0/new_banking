@@ -49,21 +49,26 @@ AddEventHandler('bank:transfer', function(to, amountt)
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
 	local zPlayer = ESX.GetPlayerFromId(to)
-	local balance = 0
-	balance = xPlayer.getAccount('bank').money
-	zbalance = zPlayer.getAccount('bank').money
 	
-	if tonumber(_source) == tonumber(to) then
-		TriggerClientEvent('chatMessage', _source, "You cannot transfer to your self")
-	else
-		if balance <= 0 or balance < tonumber(amountt) or tonumber(amountt) <= 0 then
-			TriggerClientEvent('chatMessage', _source, "You don't have enough money in the bank.")
-		else
-			xPlayer.removeAccountMoney('bank', amountt)
-			zPlayer.addAccountMoney('bank', amountt)
-		end
+	--Thanks to (LuCampbell)
+	TriggerEvent('es:getPlayerFromId', xPlayer, function(user)
+		if (tonumber(user.money) >= tonumber(amountt)) then
+			local player = user.identifier
+			user:removeMoney((amountt))	
 		
-	end
+			TriggerEvent('es:getPlayerFromId', zPlayer, function(user2)
+				local player2 = user2.identifier
+				user2:addMoney((amountt))
+				TriggerClientEvent("chatMessage", zPlayer , "You received money ", { 52, 201, 36 }, "You received the sum of "..amountt.." dollars")
+				TriggerClientEvent("chatMessage", xPlayer, "Payment receipt ", { 255, 0, 0 }, "Your payment of "..amountt.." dollars is done")
+			end)	
+		else
+			if (tonumber(user.money) < tonumber(amountt)) then
+			
+				TriggerClientEvent("chatMessage", player, "", { 255, 0, 0 }, "You do not have enough money")
+			end
+		end
+	end) 
 end)
 
 
