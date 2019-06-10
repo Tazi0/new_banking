@@ -6,6 +6,7 @@ inMenu                      = true
 local showblips = true
 local atbank = false
 local bankMenu = true
+local onlybank = false
 local banks = {
   {name="Bank", id=108, x=150.266, y=-1040.203, z=29.374},
   {name="Bank", id=108, x=-1212.980, y=-330.841, z=37.787},
@@ -170,7 +171,7 @@ Citizen.CreateThread(function()
 end)
 
 Citizen.CreateThread(function()
-	if showblips then
+	if showblips and onlybank == false then
 	  for k,v in ipairs(atms)do
 		local blip = AddBlipForCoord(v.x, v.y, v.z)
 		SetBlipSprite(blip, v.id)
