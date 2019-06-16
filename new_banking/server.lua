@@ -1,6 +1,6 @@
--- ================================================================================================
--- ==                                VARIABLES - DO NOT EDIT                                     ==
--- ================================================================================================
+--================================================================================================--
+--==                                VARIABLES - DO NOT EDIT                                     ==--
+--================================================================================================--
 ESX = nil
 
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
@@ -11,7 +11,7 @@ AddEventHandler('bank:deposit', function(amount)
 
     local xPlayer = ESX.GetPlayerFromId(_source)
     if amount == nil or amount <= 0 or amount > xPlayer.getMoney() then
-        TriggerClientEvent('chatMessage', _source, "Invalid Amount")
+        TriggerClientEvent('chatMessage', _source, _U('invalid_amount'))
     else
         xPlayer.removeMoney(amount)
         xPlayer.addAccountMoney('bank', tonumber(amount))
@@ -26,7 +26,7 @@ AddEventHandler('bank:withdraw', function(amount)
     amount = tonumber(amount)
     base = xPlayer.getAccount('bank').money
     if amount == nil or amount <= 0 or amount > base then
-        TriggerClientEvent('chatMessage', _source, "Invalid Amount")
+        TriggerClientEvent('chatMessage', _source, _U('invalid_amount'))
     else
         xPlayer.removeAccountMoney('bank', amount)
         xPlayer.addMoney(amount)
@@ -58,20 +58,13 @@ AddEventHandler('bank:transfer', function(to, amountt)
                 TriggerEvent('es:getPlayerFromId', zPlayer, function(user2)
                     local player2 = user2.identifier
                     user2:addMoney((amountt))
-                    TriggerClientEvent("chatMessage", zPlayer,
-                                       "You received money ", {52, 201, 36},
-                                       "You received the sum of " .. amountt ..
-                                           " dollars")
-                    TriggerClientEvent("chatMessage", xPlayer,
-                                       "Payment receipt ", {255, 0, 0},
-                                       "Your payment of " .. amountt ..
-                                           " dollars is done")
+                    TriggerClientEvent("chatMessage", zPlayer, _U('recieved1'), {52, 201, 36}, _U('recieved2') .. amountt .. _U('recieved3'))
+                    TriggerClientEvent("chatMessage", xPlayer, _U('removed1'), {255, 0, 0}, _U('removed2') .. amountt .. _U('removed3'))
                 end)
             else
                 if (tonumber(user.money) < tonumber(amountt)) then
 
-                    TriggerClientEvent("chatMessage", player, "", {255, 0, 0},
-                                       "You do not have enough money")
+                    TriggerClientEvent("chatMessage", player, "", {255, 0, 0}, _U('no_money'))
                 end
             end
         end
