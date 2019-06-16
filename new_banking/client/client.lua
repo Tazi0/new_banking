@@ -68,7 +68,7 @@ end
 
 --BANK
 Citizen.CreateThread(function()
-	if Config.ShopBlips then
+	if Config.ShowBlips then
 	  for k,v in ipairs(Config.Bank)do
 		local blip = AddBlipForCoord(v.x, v.y, v.z)
 		SetBlipSprite (blip, v.id)
@@ -85,7 +85,7 @@ end)
 
 --ATM
 Citizen.CreateThread(function()
-	if Config.ShopBlips and Config.OnlyBank == false then
+	if Config.ShowBlips and Config.OnlyBank == false then
 	  for k,v in ipairs(Config.ATM)do
 		local blip = AddBlipForCoord(v.x, v.y, v.z)
 		SetBlipSprite (blip, v.id)
