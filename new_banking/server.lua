@@ -45,12 +45,12 @@ end)
 RegisterServerEvent('bank:transfer')
 AddEventHandler('bank:transfer', function(to, amountt)
     local _source = source
-    local xPlayer = ESX.GetPlayerFromId(_source)
-    local zPlayer = ESX.GetPlayerFromId(to)
+    local xPlayer = ESX.GetPlayerFromId(_source) 
+    local zPlayer = ESX.GetPlayerFromId(to) 
 
     -- Thanks to (LuCampbell)
-	TriggerEvent('es:getPlayerFromId', xPlayer, function(user) 
-        if zPlayer ~= nil then
+    TriggerEvent('es:getPlayerFromId', xPlayer, function(user)  
+        if user ~= nil then
             if (tonumber(user.money) >= tonumber(amountt)) then
                 local player = user.identifier
                 user:removeMoney((amountt))
