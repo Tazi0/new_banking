@@ -68,7 +68,7 @@ end
 
 --BANK
 Citizen.CreateThread(function()
-	if Config.ShopBlips then
+	if Config.ShowBlips then
 	  for k,v in ipairs(Config.Bank)do
 		local blip = AddBlipForCoord(v.x, v.y, v.z)
 		SetBlipSprite (blip, v.id)
@@ -85,7 +85,7 @@ end)
 
 --ATM
 Citizen.CreateThread(function()
-	if Config.ShopBlips and Config.OnlyBank == false then
+	if Config.ShowBlips and Config.OnlyBank == false then
 	  for k,v in ipairs(Config.ATM)do
 		local blip = AddBlipForCoord(v.x, v.y, v.z)
 		SetBlipSprite (blip, v.id)
@@ -179,7 +179,7 @@ function nearBank()
 	local player = GetPlayerPed(-1)
 	local playerloc = GetEntityCoords(player, 0)
 
-	for _, search in pairs(banks) do
+	for _, search in pairs(Config.Bank) do
 		local distance = GetDistanceBetweenCoords(search.x, search.y, search.z, playerloc['x'], playerloc['y'], playerloc['z'], true)
 
 		if distance <= 3 then
@@ -192,7 +192,7 @@ function nearATM()
 	local player = GetPlayerPed(-1)
 	local playerloc = GetEntityCoords(player, 0)
 
-	for _, search in pairs(atms) do
+	for _, search in pairs(Config.ATM) do
 		local distance = GetDistanceBetweenCoords(search.x, search.y, search.z, playerloc['x'], playerloc['y'], playerloc['z'], true)
 
 		if distance <= 2 then
