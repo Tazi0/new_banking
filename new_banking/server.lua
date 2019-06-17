@@ -1,6 +1,6 @@
---================================================================================================--
---==                                VARIABLES - DO NOT EDIT                                     ==--
---================================================================================================--
+-- ================================================================================================--
+-- ==                                VARIABLES - DO NOT EDIT                                     ==--
+-- ================================================================================================--
 ESX = nil
 
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
@@ -45,29 +45,47 @@ end)
 RegisterServerEvent('bank:transfer')
 AddEventHandler('bank:transfer', function(to, amountt)
     local _source = source
+    print(to)
+    print(_source)
+    print(amountt)
+    print(xPlayer)
+    print(zPlayer)
     local xPlayer = ESX.GetPlayerFromId(_source)
     local zPlayer = ESX.GetPlayerFromId(to)
-
-    -- Thanks to (LuCampbell)
-	TriggerEvent('es:getPlayerFromId', xPlayer, function(user) 
-        if zPlayer ~= nil then
-            if (tonumber(user.money) >= tonumber(amountt)) then
-                local player = user.identifier
-                user:removeMoney((amountt))
-
-                TriggerEvent('es:getPlayerFromId', zPlayer, function(user2)
-                    local player2 = user2.identifier
-                    user2:addMoney((amountt))
-                    TriggerClientEvent("chatMessage", zPlayer, _U('recieved1'), {52, 201, 36}, _U('recieved2') .. amountt .. _U('recieved3'))
-                    TriggerClientEvent("chatMessage", xPlayer, _U('removed1'), {255, 0, 0}, _U('removed2') .. amountt .. _U('removed3'))
-                end)
+    local balance = 0
+    if zPlayer ~= nil then
+        balance = xPlayer.getAccount('bank').money
+        zbalance = zPlayer.getAccount('bank').money
+        if tonumber(_source) == tonumber(to) then
+            -- advanced notification with bank icon
+            TriggerClientEvent('esx:showAdvancedNotification', _source, 'Bank',
+                               'Transfer Money',
+                               'You cannot transfer to your self!',
+                               'CHAR_BANK_MAZE', 9)
+        else
+            if balance <= 0 or balance < tonumber(amountt) or tonumber(amountt) <=
+                0 then
+                -- advanced notification with bank icon
+                TriggerClientEvent('esx:showAdvancedNotification', _source,
+                                   'Bank', 'Transfer Money',
+                                   'Not enough money to transfer!',
+                                   'CHAR_BANK_MAZE', 9)
             else
-                if (tonumber(user.money) < tonumber(amountt)) then
-
-                    TriggerClientEvent("chatMessage", player, "", {255, 0, 0}, _U('no_money'))
-                end
+                xPlayer.removeAccountMoney('bank', tonumber(amountt))
+                zPlayer.addAccountMoney('bank', tonumber(amountt))
+                -- advanced notification with bank icon
+                TriggerClientEvent('esx:showAdvancedNotification', _source,
+                                   'Bank', 'Transfer Money',
+                                   'You transfered ~r~$' .. amountt ..
+                                       '~s~ to ~r~' .. to .. ' .',
+                                   'CHAR_BANK_MAZE', 9)
+                TriggerClientEvent('esx:showAdvancedNotification', to, 'Bank',
+                                   'Transfer Money', 'You received ~r~$' ..
+                                       amountt .. '~s~ from ~r~' .. _source ..
+                                       ' .', 'CHAR_BANK_MAZE', 9)
             end
-        end
-    end)
-end)
 
+        end
+    end
+
+end)
