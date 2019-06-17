@@ -9,5 +9,5 @@ Locales['tr'] = {
     ['recieved3'] = ' Dolar',
     ['removed1'] = 'Ödeme Makbuzu ',
     ['removed2'] = 'Ödemen ',
-    ['removed3'] = ' dolar gönderildi.'
+    ['removed3'] = ' dolar gönderildi.',
 }
