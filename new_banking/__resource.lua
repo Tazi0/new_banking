@@ -3,7 +3,7 @@ resource_manifest_version '44febabe-d386-4d18-afbe-5e627f4af937'
 ui_page('client/html/UI.html') --THIS IS IMPORTENT
 
 server_scripts {  
-	'@es_extended/locale.lua',
+	'locale.lua',
 	'locales/en.lua',
 	'locales/tr.lua', 
 	'config.lua',
@@ -12,7 +12,7 @@ server_scripts {
 
 
 client_scripts {
-	'@es_extended/locale.lua',
+	'locale.lua',
 	'locales/tr.lua',
 	'locales/en.lua', 
 	'config.lua',
@@ -34,5 +34,6 @@ files {
     'client/html/media/img/fingerprint.jpg',
     'client/html/media/img/graph.png',
     'client/html/media/img/logo-big.png',
-    'client/html/media/img/logo-top.png'
-} 
+    'client/html/media/img/logo-top.png',
+    'locale.js',
+}

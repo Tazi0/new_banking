@@ -9,5 +9,5 @@ Locales['en'] = {
     ['recieved3'] = ' dollars',
     ['removed1'] = 'Payment receipt ',
     ['removed2'] = 'Your payment of ',
-    ['removed3'] = ' dollars is done',
+    ['removed3'] = ' dollars is done'
 }

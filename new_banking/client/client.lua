@@ -36,28 +36,22 @@ end)
 --===============================================
 if bankMenu then
 	Citizen.CreateThread(function()
-	while true do
-		Wait(0)
-	if nearBank() or nearATM() then
-			DisplayHelpText(_U('atm_open'))
+		while true do
+			Wait(0)
+			if nearBank() or nearATM() then
+					DisplayHelpText(_U('atm_open'))
 
-		if IsControlJustPressed(1, 38) then
-			playAnim('mp_common', 'givetake1_a', 2500)
-			Citizen.Wait(2500)
-			inMenu = true
-			SetNuiFocus(true, true)
-			SendNUIMessage({type = 'openGeneral'})
-			TriggerServerEvent('bank:balance')
-			local ped = GetPlayerPed(-1)
-		end
-	end
+				if IsControlJustPressed(1, 38) then
+					openUI()
+					TriggerServerEvent('bank:balance')
+					local ped = GetPlayerPed(-1)
+				end
+			end
 
-		if IsControlJustPressed(1, 322) then
-		inMenu = false
-			SetNuiFocus(false, false)
-			SendNUIMessage({type = 'close'})
+			if IsControlJustPressed(1, 322) then
+				closeUI()
+			end
 		end
-	end
 	end)
 end
 
@@ -77,7 +71,7 @@ Citizen.CreateThread(function()
 		SetBlipColour (blip, 2)
 		SetBlipAsShortRange(blip, true)
 		BeginTextCommandSetBlipName("STRING")
-		AddTextComponentString(_U('bank_blip'))
+		AddTextComponentString(_U("bank_blip"))
 		EndTextCommandSetBlipName(blip)
 	  end
 	end
@@ -94,7 +88,7 @@ Citizen.CreateThread(function()
 		SetBlipColour (blip, 2)
 		SetBlipAsShortRange(blip, true)
 		BeginTextCommandSetBlipName("STRING")
-		AddTextComponentString(_U('atm_blip'))
+		AddTextComponentString(_U("atm_blip"))
 		EndTextCommandSetBlipName(blip)
 	  end
 	end
@@ -164,11 +158,21 @@ end)
 --==               NUIFocusoff                 ==
 --===============================================
 RegisterNUICallback('NUIFocusOff', function()
-	inMenu = false
-	SetNuiFocus(false, false)
-			playAnim('mp_common', 'givetake1_a', 2500)
-			Citizen.Wait(2500)
-	SendNUIMessage({type = 'closeAll'})
+	closeUI()
+end)
+
+AddEventHandler('onResourceStop', function (resourceName)
+	if (GetCurrentResourceName() ~= resourceName) then
+	  return
+	end
+	closeUI()
+end)
+
+AddEventHandler('onResourceStart', function (resourceName)
+	if(GetCurrentResourceName() ~= resourceName) then
+		return
+	end
+	closeUI()
 end)
 
 
@@ -199,6 +203,26 @@ function nearATM()
 			return true
 		end
 	end
+end
+
+function closeUI()
+	inMenu = false
+	SetNuiFocus(false, false)
+	if Config.Animation then 
+		playAnim('mp_common', 'givetake1_a', Config.AnimationTime)
+		Citizen.Wait(Config.AnimationTime)
+	end
+	SendNUIMessage({type = 'closeAll'})
+end
+
+function openUI()
+	if Config.Animation then 
+		playAnim('mp_common', 'givetake1_a', Config.AnimationTime)
+		Citizen.Wait(Config.AnimationTime)
+	end
+	inMenu = true
+	SetNuiFocus(true, true)
+	SendNUIMessage({type = 'openGeneral'})
 end
 
 

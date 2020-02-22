@@ -9,5 +9,5 @@ Locales['nl'] = {
     ['recieved3'] = ' euro',
     ['removed1'] = 'Betalingsbewijs ',
     ['removed2'] = 'Uw betaling van ',
-    ['removed3'] = ' euro is doorgegeven',
+    ['removed3'] = ' euro is doorgegeven'
 }

@@ -10,9 +10,12 @@ AddEventHandler('bank:deposit', function(amount)
     local _source = source
 
     local xPlayer = ESX.GetPlayerFromId(_source)
-    if amount == nil or amount <= 0 or amount > xPlayer.getMoney() then
+    if amount == nil or amount <= 0 then
         TriggerClientEvent('chatMessage', _source, _U('invalid_amount'))
     else
+        if amount > xPlayer.getMoney() then
+            amount = xPlayer.getMoney()
+        end
         xPlayer.removeMoney(amount)
         xPlayer.addAccountMoney('bank', tonumber(amount))
     end
@@ -25,9 +28,12 @@ AddEventHandler('bank:withdraw', function(amount)
     local base = 0
     amount = tonumber(amount)
     base = xPlayer.getAccount('bank').money
-    if amount == nil or amount <= 0 or amount > base then
+    if amount == nil or amount <= 0 then
         TriggerClientEvent('chatMessage', _source, _U('invalid_amount'))
     else
+        if amount > base then
+            amount = base
+        end
         xPlayer.removeAccountMoney('bank', amount)
         xPlayer.addMoney(amount)
     end
