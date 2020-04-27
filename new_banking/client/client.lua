@@ -49,7 +49,9 @@ if bankMenu then
 			end
 
 			if IsControlJustPressed(1, 322) then
-				closeUI()
+				if nearBank() or nearATM() then
+					closeUI()
+				end
 			end
 		end
 	end)
