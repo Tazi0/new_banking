@@ -67,10 +67,12 @@
     					<div class="circle-confiance"></div>
     				</div>
     				<div class="pub box-shadow social">
-    					<p>
-							<span>Start investing into companys</span><br>
-							This mode is currently not available but we will in a few years
-						</p>
+    					<button class="btn btn-blue" id="esx_invest">
+							<i class="far fa-handshake"></i>
+							<span class="far fa-handshake icon"></span>
+							<p>ESX Invest<br>
+							<span>invest into companies</span></p>
+						</button>
     				</div>
     			</div>
 	    	</div>
@@ -234,10 +236,13 @@
 	            $('#general').hide();
 	            $('#transferUI').show();
 	        })
+			$('#esx_invest').click(function(){
+				$.post('http://new_banking/esx_invest', "{}")
+	        })
 	        $('#fingerprint-content').click(function(){
 	            $('.fingerprint-active, .fingerprint-bar').addClass("active")
 	            setTimeout(function(){
-		  		$('#general').css('display', 'block')
+		  			$('#general').css('display', 'block')
 					$('#topbar').css('display', 'flex')
 					$('#waiting').css('display', 'none')
 					$('.fingerprint-active, .fingerprint-bar').removeClass("active")

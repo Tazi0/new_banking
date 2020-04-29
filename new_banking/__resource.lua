@@ -19,6 +19,8 @@ client_scripts {
 	'client/client.lua'
 }
 
+export 'openUI'
+
 --[[The following is for the files which are need for you UI (like, pictures, the HTML file, css and so on) ]]--
 files {
 	'client/html/UI.html',

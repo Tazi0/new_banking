@@ -4,8 +4,15 @@ Config.Locale = 'en'
 
 Config.ShowBlips = true
 Config.OnlyBank = false
-Config.Animation = false
-Config.AnimationTime = 2500 -- Miliseconds
+Config.Animation = {
+    Active = true,
+    Time = 2500 -- Miliseconds
+}
+
+Config.Keys = {
+    Open = "E",
+    Close = "ESC"
+}
 
 Config.Bank = {
     {id = 108, x = 150.266, y = -1040.203, z = 29.374},

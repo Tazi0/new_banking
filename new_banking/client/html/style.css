@@ -284,10 +284,12 @@ nav{
 	margin: 11px;
 }
 .social{
-	background-image: url(media/img/logo.png);
-	background-repeat: no-repeat;
-	background-position-y: 1px;
-    background-position-x: 230px;
+    background: transparent;
+}
+
+.social button {
+    width: 100%;
+    height: 100%;
 }
 .graph{
 	width: 275px;
