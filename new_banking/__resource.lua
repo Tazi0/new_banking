@@ -5,7 +5,8 @@ ui_page('client/html/UI.html') --THIS IS IMPORTENT
 server_scripts {  
 	'locale.lua',
 	'locales/en.lua',
-	'locales/tr.lua', 
+    'locales/tr.lua', 
+    'locales/es.lua',
 	'config.lua',
 	'server.lua'
 }
@@ -14,7 +15,8 @@ server_scripts {
 client_scripts {
 	'locale.lua',
 	'locales/tr.lua',
-	'locales/en.lua', 
+    'locales/en.lua', 
+    'locales/es.lua',
 	'config.lua',
 	'client/client.lua'
 }
