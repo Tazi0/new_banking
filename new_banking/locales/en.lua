@@ -4,10 +4,10 @@ Locales['en'] = {
     ['bank_blip'] = 'Bank',
     ['atm_open'] = 'Press ~INPUT_PICKUP~ to access account ~b~',
     ['no_money'] = 'You do not have enough money',
-    ['recieved1'] = 'You received money ',
-    ['recieved2'] = 'You received the sum of ',
-    ['recieved3'] = ' dollars',
-    ['removed1'] = 'Payment receipt ',
-    ['removed2'] = 'Your payment of ',
-    ['removed3'] = ' dollars is done'
+    ['transfer_money'] = 'Transfer Money',
+    ['bank'] = 'Bank',
+    ['transfer_to'] = 'You transfered ~r~$ %s~s~ to ~r~%s.',
+    ['receive_money'] = 'You received ~r~$ %s~s~ from ~r~%s.',
+    ['not_to_yourself'] = 'You cannot transfer to your self!',
+    ['not_enough_money'] = 'Not enough money to transfer!'
 }
