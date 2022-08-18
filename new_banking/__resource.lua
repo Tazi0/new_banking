@@ -5,8 +5,9 @@ ui_page('client/html/UI.html') --THIS IS IMPORTENT
 server_scripts {  
 	'locale.lua',
 	'locales/en.lua',
-    'locales/tr.lua', 
-    'locales/es.lua',
+    	'locales/tr.lua', 
+    	'locales/es.lua',
+	'locales/fr.lua',
 	'config.lua',
 	'server.lua'
 }
@@ -15,8 +16,9 @@ server_scripts {
 client_scripts {
 	'locale.lua',
 	'locales/tr.lua',
-    'locales/en.lua', 
-    'locales/es.lua',
+	'locales/en.lua', 
+    	'locales/es.lua',
+	'locales/fr.lua',
 	'config.lua',
 	'client/client.lua'
 }
@@ -25,7 +27,7 @@ export 'openUI'
 
 --[[The following is for the files which are need for you UI (like, pictures, the HTML file, css and so on) ]]--
 files {
-	'client/html/UI.html',
+    'client/html/UI.html',
     'client/html/style.css',
     'client/html/media/font/Bariol_Regular.otf',
     'client/html/media/font/Vision-Black.otf',
