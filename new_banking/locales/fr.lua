@@ -1,4 +1,4 @@
-Locales['ft'] = {
+Locales['fr'] = {
     ['invalid_amount'] = 'Montant invalide',
     ['atm_blip'] = 'DAB',
     ['bank_blip'] = 'Banque',
